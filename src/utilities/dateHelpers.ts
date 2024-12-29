@@ -5,7 +5,6 @@ import {
   getDate,
   startOfMonth,
   endOfMonth,
-  isToday,
 } from "date-fns";
 
 const TOTAL_CELLS_COUNT = 7 * 6;
@@ -18,13 +17,17 @@ const createDayData = (
 ) => {
   const dayOfWeek = getDay(new Date(year, month, dayOfMonth));
 
+  const isToday =
+    new Date(year, month, dayOfMonth).getTime() ===
+    new Date().setHours(0, 0, 0, 0);
+
   return {
     date: format(new Date(year, month, dayOfMonth), "yyyy-MM-dd"),
     dayOfWeek,
     dayOfMonth,
     isCurrentMonth,
     isWeekend: dayOfWeek === 6 || dayOfWeek === 0,
-    isToday: isToday(new Date(year, month, dayOfMonth)),
+    isToday,
   };
 };
 
